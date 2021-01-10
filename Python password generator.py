@@ -2,7 +2,7 @@ import string
 from tkinter import *
 from tkinter import messagebox as mb
 import random
-
+from datetime import datetime
 # collecting characters
 
 A=string.ascii_uppercase
@@ -20,7 +20,7 @@ def Gen_password():
     try:
         lan=int(var.get())
     except Exception as e:
-        mb.showinfo("Error","Enter a intager")    
+        mb.showinfo("Error","Enter a intager")
     random.shuffle(c_list)
     global password
     password=("".join(c_list[0:lan]))
@@ -30,9 +30,13 @@ def Gen_password():
 
 
 def copy():
+    file=open("PassWord logs.txt","a")
+    now = datetime.now()
+    dt_string = now.strftime("Date------->"+"%B %d,%Y "+"Time------>"+"%H:%M:%S")
     root.clipboard_clear()
     root.clipboard_append(password)
-
+    file.write(f'Password----->  {password}  ----->{dt_string}\n')
+    file.close()
 
 
 root=Tk()
